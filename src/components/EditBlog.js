@@ -5,7 +5,7 @@ import { UserContext } from '../contexts/UserDataContext';
 import { API } from '../Services/api';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBlog, getBlogs } from '../slices/blogSlice';
+import { getBlogs } from '../slices/blogSlice';
 import { useNavigate, useParams } from 'react-router';
 import { setOpen } from '../slices/snackbarSlice';
 import { updateMyBlog } from '../slices/myBlogSlice';

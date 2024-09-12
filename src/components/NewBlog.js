@@ -9,7 +9,7 @@ import { addBlog } from '../slices/blogSlice';
 import { useNavigate } from 'react-router';
 import { setOpen } from '../slices/snackbarSlice';
 import { imagePlaceHolder } from '../constants/placeholders';
-import { addMyBlog, addMyBlogs } from '../slices/myBlogSlice';
+import { addMyBlog } from '../slices/myBlogSlice';
 import { getServerURL } from '../utils/comman';
 
 

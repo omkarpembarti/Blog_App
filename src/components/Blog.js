@@ -14,14 +14,14 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { API } from '../Services/api';
 import { useDispatch } from 'react-redux';
 import { getBlogs } from '../slices/blogSlice';
 import { setOpen } from '../slices/snackbarSlice';
 import { deleteMyBlog } from '../slices/myBlogSlice';
 import { ThemeContext } from '../contexts/Themecontext';
-import { getServerURL } from '../utils/comman';
+import { getAccessToken, getServerURL } from '../utils/comman';
 import { UserContext } from '../contexts/UserDataContext';
+import axios from 'axios';
 
 
 
@@ -46,9 +46,16 @@ const BlogMenu = (props) => {
     const onDeleteBlog = (event) => {
         async function deleteBlog(id) {
             setloaderOpen(true);
-            const response = await API.deleteBlog(id);
+            //const response = await API.deleteBlog(id);
+            const response = await axios.delete(`${getServerURL()}/blogs/${id}`,
+                {
+                    'headers': {
+                        'authorization': getAccessToken(),
+                        'Access-Control-Allow-Origin': '*',
+                    }
+                });
             setloaderOpen(false);
-            if (response.isSuccess) {
+            if (response.data.success) {
 
                 dispatch(deleteMyBlog({ '_id': id }));
                 dispatch(setOpen({ 'message': 'Deleted Successfully' }));

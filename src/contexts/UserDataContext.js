@@ -6,12 +6,9 @@ export const UserContext = createContext();
 const UserDataContext = ({ children }) => {
     const [open, setloaderOpen] = useState(false);
     const [userInfo, setUserInfo] = useState({
-        name: '',
         userName: ''
     });
-    // const setUserInfoWrap = (param) => {
-    //     setUserInfo(param)
-    // }
+
     return (
         <UserContext.Provider value={{ userInfo, setUserInfo, setloaderOpen }}>
             {children}

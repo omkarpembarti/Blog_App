@@ -1,14 +1,12 @@
-import { Backdrop, CircularProgress, CssBaseline, createTheme } from '@mui/material';
+import { CssBaseline, createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import { Provider } from 'react-redux';
 import React, { Suspense, lazy, useContext, useEffect, useState } from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router';
-
 import './App.css';
 import Header from './components/Header';
 import { ThemeContext } from './contexts/Themecontext';
 import BlogsContainer from './components/BlogsContainer';
-//import NewBlog from './components/NewBlog';
 import Register from './Routes/Register';
 import Login from './Routes/Login';
 import UserDataContext from './contexts/UserDataContext';
@@ -19,6 +17,7 @@ import MyBlogs from './Routes/MyBlogs';
 import EditBlog from './components/EditBlog';
 import WifiIcon from '@mui/icons-material/Wifi';
 import WifiOffIcon from '@mui/icons-material/WifiOff';
+import { auth } from './firebase';
 const LazyNewBlog = lazy(() => import('./components/NewBlog'));
 
 function App() {
@@ -49,6 +48,17 @@ function App() {
   }
 
   useEffect(() => {
+
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserAuthenticated(true);
+
+      } else {
+        setUserAuthenticated(false);
+      }
+
+      console.log(user);
+    })
 
     window.addEventListener('offline', () => {
       console.warn('YOU ARE OFFLINE');
@@ -87,7 +97,7 @@ function App() {
             {isUserAuthenticated && <Header setUserAuthenticated={setUserAuthenticated} />}
             <Routes>
               <Route path='/login' element={<Login setUserAuthenticated={setUserAuthenticated} />} exact />
-              <Route path='/register' element={<Register />} exact />
+              <Route path='/register' element={<Register setUserAuthenticated={setUserAuthenticated} />} exact />
               <Route path='/' element={<PrivateRoute isUserAuthenticated={isUserAuthenticated} />}>
                 <Route path='/' element={<BlogsContainer />} exact />
                 <Route path='/addBlog' element={

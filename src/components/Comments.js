@@ -42,7 +42,7 @@ const Comments = ({ blog }) => {
             setloaderOpen(true);
             const response = await API.getComments(blog._id);
             setloaderOpen(false);
-            console.log(response);
+
             setComments(response.data);
         }
         getAllComments()
@@ -52,7 +52,7 @@ const Comments = ({ blog }) => {
         const text = e.target.value;
         setNewComment((prevState) => ({
             ...prevState, 'comment': text, 'postID': blog._id,
-            'name': userInfo.name
+            'name': userInfo.userName
         }));
     }
     const handleClearBtnClick = () => {

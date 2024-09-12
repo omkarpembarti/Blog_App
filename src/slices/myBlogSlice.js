@@ -5,8 +5,6 @@ import { API } from "../Services/api";
 export const getMyBlogs = createAsyncThunk(
     'blogs/getMyBlogs',
     async (userInfo) => {
-        console.log('Inside getMyBLogs');
-        //const { userInfo } = useContext(UserContext);
         const response = await API.getMyBlogs(userInfo.userName);
         return response
     });
@@ -29,7 +27,6 @@ const myblogSlice = createSlice({
             })
         },
         addMyBlog(state, action) {
-            console.log(action);
             state.myBlogs.push(action.payload);
         },
         updateMyBlog(state, action) {
@@ -49,7 +46,6 @@ const myblogSlice = createSlice({
         },
 
         [getMyBlogs.fulfilled]: (state, { payload }) => {
-            console.log(payload);
             state.myBlogs = payload.data;
             state.loading = false;
         },

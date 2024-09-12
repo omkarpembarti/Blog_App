@@ -23,23 +23,15 @@ export const API_NOTIFICATION_MESSAGES = {
 }
 
 export const SERVICE_URLS = {
-    userLogin: { url: '/login', method: 'POST' },
-    userRegister: { url: '/register', method: 'POST' },
-    publishBlog: { url: 'blog/publish', method: 'POST' },
-    uploadImage: { url: 'blog/publishImage', method: 'POST' },
-    getAllBlogs: { url: '/allBlogs', method: 'GET' },
-    getMyBlogs: { url: '/myBlogs', method: 'GET', query: true },
-    addComment: { url: '/comment/new', method: 'POST' },
-    getComments: { url: 'comments', method: 'GET', query: true },
-    updateBlog: { url: 'updateBlog', method: 'PUT' },
-    deleteBlog: { url: '/deleteBlog', method: 'GET', query: true },
-    // getRefreshToken: { url: '/token', method: 'POST' },
-
-    // createPost: { url: 'create', method: 'POST' },
-
-    // getPostById: { url: 'post', method: 'GET', query: true },
-
-
-    // deleteComment: { url: 'comment/delete', method: 'DELETE', query: true },
+    userLogin: { url: '/users/login', method: 'POST' },
+    userRegister: { url: '/users/register', method: 'POST' },
+    publishBlog: { url: '/blogs', method: 'POST' },
+    uploadImage: { url: '/blogs/image', method: 'POST' },
+    getAllBlogs: { url: '/blogs/all', method: 'GET' },
+    getMyBlogs: { url: '/blogs', method: 'GET', query: true },
+    addComment: { url: '/comments/new', method: 'POST' },
+    getComments: { url: '/comments', method: 'GET', query: true },
+    updateBlog: { url: '/blogs', method: 'PUT' },
+    deleteBlog: { url: '/deleteBlog', method: 'DELETE', query: true },
 
 }

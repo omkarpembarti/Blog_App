@@ -21,7 +21,6 @@ const blogSlice = createSlice({
     initialState,
     reducers: {
         addBlog(state, action) {
-            console.log(action);
             state.blogs = [...state.blogs, action.payload.newBlog];
         },
         deleteBlog(state, action) {

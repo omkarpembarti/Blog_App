@@ -11,7 +11,10 @@ import { useLocation, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { resetblogSlice } from '../slices/blogSlice';
 import { resetMyblogSlice } from '../slices/myBlogSlice';
-// import { setOpen } from '../slices/snackbarSlice';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+import { setOpen } from '../slices/snackbarSlice';
+import { UserContext } from '../contexts/UserDataContext';
 
 export default function Header({ setUserAuthenticated }) {
 
@@ -23,6 +26,7 @@ export default function Header({ setUserAuthenticated }) {
     const location = useLocation();
     const writeBtnRef = useRef(null);
     const dispatch = useDispatch();
+    const { setUserInfo, setloaderOpen } = useContext(UserContext);
 
     useEffect(() => {
         const path = location.pathname;
@@ -36,11 +40,27 @@ export default function Header({ setUserAuthenticated }) {
         navigate('/addBlog');
     }
 
-    const onBtnLogout = () => {
+    const onBtnLogout = async () => {
         handleClose();
-        dispatch(resetblogSlice());
-        dispatch(resetMyblogSlice());
-        setUserAuthenticated(false);
+        setloaderOpen(true);
+        signOut(auth)
+            .then(() => {
+                dispatch(resetblogSlice());
+                dispatch(resetMyblogSlice());
+                setUserAuthenticated(false);
+                setUserInfo({ 'userName': '' });
+                sessionStorage.setItem('accessToken', '');
+            })
+            .catch(err => {
+                dispatch(setOpen({ 'message': err.message, 'severity': 'error' }));
+            })
+            .finally(() => {
+                setloaderOpen(false);
+            })
+        // dispatch(resetblogSlice());
+        // dispatch(resetMyblogSlice());
+        // setUserAuthenticated(false);
+
     }
 
 
